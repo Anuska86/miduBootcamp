@@ -1,29 +1,32 @@
-
 import "./styles.css";
+import { useState } from "react";
+import { Note } from "./Note.js";
 
-const notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    date: "2020-11-01T 13:17:30.098Z",
-    important: true,
-  },
+export default function App(props) {
+  const [notes, setNotes] = useState(props.notes);
+  const [newNote, setNewNote] = useState("");
 
-  {
-    id: 2,
-    content: "Browser can execute only JavaScript",
-    date: "2020-11-01T 14:17:30.098Z",
-    important: false,
-  },
+  const handleChange = (event) => {
+    setNewNote(event.target.value);
+  };
 
-  {
-    id: 3,
-    content: "GET and POST are the most important methods of HTML",
-    date: "2020-11-01T 15:17:30.098Z",
-    important: true,
-  },
-];
+  const handleClick = (event) => {
+    console.log(newNote);
+  };
 
-export default function App() {
-  return <h1>Bootcamp class 4</h1>;
+  return (
+    <div>
+      <h1>Notes</h1>
+      <ol>
+        {notes.map((note) => (
+          <Note keyn={note.id} {...note} />
+        ))}
+      </ol>
+
+      <div>
+        <input type="text" onChange={handleChange} value={newNote} />
+        <button onClick={handleClick}>Make a note</button>
+      </div>
+    </div>
+  );
 }
